@@ -1,14 +1,18 @@
 import CameraService
 import UIKit
 
-protocol FeedbackGenerator {
-    func generate()
-}
-
 protocol CameraView: AnyObject {
     func animateShutter()
     func updateLayer(_ layer: CALayer)
     func updateState(_ state: ViewModel.State)
+}
+
+protocol CameraInterface {
+    var layer: CALayer { get }
+    
+    func rotate()
+    func start()
+    func capture(_ completion: @escaping (UIImage?) -> Void)
 }
 
 class ViewModel {
@@ -17,9 +21,9 @@ class ViewModel {
         case taken
     }
     
-    let feedbackGenerator: FeedbackGenerator
+    let feedback: Feedback
     let router: Router
-    var camera: Camera?
+    var camera: CameraInterface?
     var image: UIImage? {
         didSet {
             view?.updateState(image == nil ? .taking : .taken)
@@ -28,8 +32,8 @@ class ViewModel {
     
     weak var view: CameraView?
     
-    init(feedbackGenerator: FeedbackGenerator, router: Router) {
-        self.feedbackGenerator = feedbackGenerator
+    init(feedback: Feedback, router: Router) {
+        self.feedback = feedback
         self.router = router
     }
     
@@ -46,13 +50,13 @@ class ViewModel {
     }
     
     func didDoubleTap() {
-        feedbackGenerator.generate()
+        feedback.perform()
         camera?.rotate()
     }
     
     func didPressShutter() {
         view?.animateShutter()
-        self.camera?.capture { self.image = $0 }
+        camera?.capture { self.image = $0 }
     }
     
     func didDiscardImage() {

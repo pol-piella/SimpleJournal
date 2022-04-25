@@ -8,15 +8,6 @@
 import UIKit
 import CameraService
 
-class ShutterButton: UIButton {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        backgroundColor = isHighlighted ? .white.withAlphaComponent(0.7) : .white
-        layer.cornerRadius = frame.width / 2.0
-    }
-}
-
 class CameraViewController: UIViewController, CameraView {
     let viewModel: ViewModel
     var layer: CALayer?
