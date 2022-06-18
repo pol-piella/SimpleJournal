@@ -7,7 +7,8 @@ let package = Package(
     name: "Features",
     platforms: [.iOS(.v15)],
     products: [
-        .library(name: "Capture", targets: ["Capture"])
+        .library(name: "Capture", targets: ["Capture"]),
+        .library(name: "EntryEditor", targets: ["EntryEditor"])
     ],
     dependencies: [
         .package(name: "CameraService", path: "../Services")
@@ -15,6 +16,7 @@ let package = Package(
     targets: [
         .target(
             name: "Capture",
-            dependencies: ["CameraService"])
+            dependencies: ["CameraService"]),
+        .target(name: "EntryEditor")
     ]
 )
