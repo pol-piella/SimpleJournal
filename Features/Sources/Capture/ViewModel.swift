@@ -1,4 +1,3 @@
-import CameraService
 import UIKit
 
 protocol CameraView: AnyObject {

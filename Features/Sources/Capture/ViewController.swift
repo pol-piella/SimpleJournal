@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import CameraService
 
 class CameraViewController: UIViewController, CameraView {
     let viewModel: ViewModel
@@ -99,7 +98,10 @@ class CameraViewController: UIViewController, CameraView {
     }()
     
     func animateShutter() {
-        
+        cameraView.alpha = 0
+        UIView.animate(withDuration: 0.3) {
+            self.cameraView.alpha = 1
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -174,6 +176,7 @@ class CameraViewController: UIViewController, CameraView {
         nextButton.isHidden = state == .taking
         rotateButton.isHidden = state == .taken
         closeButton.isHidden = state == .taking
+        shutterButton.isHidden = state == .taken
     }
 }
 

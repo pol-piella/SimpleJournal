@@ -5,9 +5,9 @@ protocol Feedback {
 }
 
 class Haptic: Feedback {
-    let generator = UIFeedbackGenerator()
+    let generator = UISelectionFeedbackGenerator()
     
     func perform() {
-        generator.prepare()
+        generator.selectionChanged()
     }
 }

@@ -1,5 +1,4 @@
 import UIKit
-import CameraService
 
 public enum Factory {
     public static func make(router: Router) -> UIViewController {
